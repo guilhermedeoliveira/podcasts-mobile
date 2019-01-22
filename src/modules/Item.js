@@ -1,18 +1,21 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { TouchableOpacity, View, Image } from 'react-native';
 
 import Text from '../components/Text';
 
 import styles, { em } from '../styles';
 import vivaLaVida from '../assets/images/viva-la-vida.jpeg';
 
-const Item = () => (
-  <View style={{
-    flexDirection: 'row',
-    height: em(4),
-    width: '100%',
-    marginVertical: em(0.5)
-  }}
+const Item = ({ onPressItem }) => (
+  <TouchableOpacity
+    onPress={onPressItem}
+    activeOpacity={0.8}
+    style={{
+      flexDirection: 'row',
+      height: em(4),
+      width: '100%',
+      marginVertical: em(0.5)
+    }}
   >
     <View style={{
       flex: 1,
@@ -47,7 +50,7 @@ const Item = () => (
     >
       <Text huge>10</Text>
     </View>
-  </View>
+  </TouchableOpacity>
 );
 
 export default Item;

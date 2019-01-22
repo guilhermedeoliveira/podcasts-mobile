@@ -6,7 +6,6 @@ import { ViewContainer, ScrollViewContainer } from '../components/shared';
 import SearchInput from '../components/SearchInput';
 import Carousel from '../components/Carousel';
 import Item from '../modules/Item';
-import Grid from '../components/Grid';
 import Text from '../components/Text';
 
 import styles, { em } from '../styles';
@@ -22,25 +21,51 @@ class HomeScreen extends PureComponent {
     }).isRequired
   };
 
-  state = { username: '' };
+  state = { search: '' };
+
+  onChangeText = (name, text) => {
+    this.setState({ [name]: text });
+  };
+
+  onPressItem = () => {
+    const { navigation: { navigate } } = this.props;
+    navigate('Details');
+  };
 
   _renderItem = ({ item }) => (
-    <Item />
+    <Item onPressItem={this.onPressItem} />
   );
 
   render() {
+    const { search } = this.state;
+
     return (
-      <ViewContainer>
-        {/* <SearchInput /> */}
-        <Text huge light color={styles.colors.black}>Center</Text>
+      <ViewContainer
+        paddingTop={em(1)}
+        backgroundColor={styles.colors.white}
+      >
+        <SearchInput
+          name="search"
+          placeholder="Search"
+          value={search}
+          onChangeText={this.onChangeText}
+        />
 
         <ScrollViewContainer>
           <ViewContainer>
-            <Carousel name="FAVORITES" entries={[0, 1, 2, 3, 4, 5, 6, 7, 8]} />
+            <Carousel
+              name="FAVORITES"
+              entries={[0, 1, 2, 3, 4, 5, 6, 7, 8]}
+              onPressItem={this.onPressItem}
+            />
           </ViewContainer>
 
           <ViewContainer>
-            <ViewContainer paddingVertical={em(1)} paddingHorizontal={em(1)}>
+            <ViewContainer
+              marginVertical={em(1)}
+              paddingVertical={em(1)}
+              paddingHorizontal={em(1)}
+            >
               <Text
                 extraLarge
                 light

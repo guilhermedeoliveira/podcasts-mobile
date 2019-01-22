@@ -9,6 +9,7 @@ import {
 } from 'prop-types';
 import Carousel from 'react-native-snap-carousel';
 
+import { ViewContainer } from '../shared';
 import Loader from '../Loader';
 import {
   CarouselContainer,
@@ -17,6 +18,7 @@ import {
   CarouselItemContainer,
   CarouselTouchableContainer
 } from './styles';
+import Text from '../Text';
 
 import styles, { em } from '../../styles';
 
@@ -45,11 +47,16 @@ class StyledCarousel extends PureComponent {
         width={itemWidth}
         paddingHorizontal={paddingHorizontal}
       >
-        <CarouselTouchableContainer width={slideWidth}>
+        <CarouselTouchableContainer width={slideWidth} onPress={onPressItem}>
           <Image
-            style={{ width: '100%', height: '100%' }}
+            style={{ flex: 0.8, width: '100%' }}
             source={{ uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png' }}
           />
+
+          <ViewContainer flex={0.2}>
+            <Text large>Black Album</Text>
+            <Text small color={styles.colors.gray}>This is a description</Text>
+          </ViewContainer>
         </CarouselTouchableContainer>
       </CarouselItemContainer>
     );

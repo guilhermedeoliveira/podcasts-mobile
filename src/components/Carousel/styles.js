@@ -20,12 +20,10 @@ export const CarouselItemContainer = styled.View`
   height: ${({ height }) => height || em(15)};
   width: ${({ width }) => width || em(1)};
   padding-left: ${({ paddingHorizontal }) => paddingHorizontal || em(1)};
-
-  background-color: red;
 `;
 
 export const CarouselTouchableContainer = styled.TouchableOpacity.attrs({
-  activeOpacity: 0.9
+  activeOpacity: 0.8
 })`
   flex: 1;
   width: ${({ width }) => width || em(2)};
