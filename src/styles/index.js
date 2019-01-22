@@ -32,6 +32,7 @@ export default {
     red: '#ff0000',
     redHeart: '#DC4B5D',
     gray: '#808080',
+    lightGray: '#f2f2f2',
     blueButton: '#4A90E2',
     transparent: 'rgba(0, 0, 0, 0)'
   },

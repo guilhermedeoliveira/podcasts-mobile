@@ -28,10 +28,26 @@ export const detailsScreenScrollViewStyle = {
 
 export const searchInputContainerStyle = {
   flexDirection: 'row',
+  justifyContent: 'center',
   alignItems: 'center',
+  position: 'relative',
   width: styles.width,
   paddingRight: em(2),
   paddingLeft: em(0.55)
+};
+
+export const searchInputIconStyle = {
+  position: 'absolute',
+  top: '15%',
+  left: '40%'
+};
+
+export const seachInputStyle = {
+  width: '100%',
+  textAlign: 'center',
+  height: em(2.5),
+  borderRadius: 25,
+  backgroundColor: styles.colors.lightGray
 };
 
 export const borderedStyle = {

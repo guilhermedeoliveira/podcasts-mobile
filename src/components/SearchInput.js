@@ -2,18 +2,19 @@ import React from 'react';
 import { View, TextInput } from 'react-native';
 import { string, func } from 'prop-types';
 
-import Button from './Button';
-import Text from './Text';
-
-import styles from '../styles';
-import { searchInputContainerStyle } from '../styles/general';
+import {
+  searchInputContainerStyle,
+  searchInputIconStyle,
+  seachInputStyle
+} from '../styles/general';
+import Ionicon from './Icon/Ionicon';
+import styles, { em } from '../styles';
 
 const SearchInput = ({
   name,
   placeholder,
   value,
-  onChangeText,
-  onPressSearchButton
+  onChangeText
 }) => (
   <View style={searchInputContainerStyle}>
     <TextInput
@@ -21,18 +22,17 @@ const SearchInput = ({
       name={name}
       placeholder={placeholder}
       value={value}
-      onChangeText={text => onChangeText(text, name)}
-      underlineColorAndroid={styles.colors.tint}
-      style={{ flex: 0.7 }}
+      onChangeText={text => onChangeText(name, text)}
+      underlineColorAndroid={styles.colors.transparent}
+      style={seachInputStyle}
     />
 
-    <Button
-      disabled={!value}
-      onPress={value ? onPressSearchButton : () => {}}
-      style={{ flex: 0.3 }}
-    >
-      <Text>Search</Text>
-    </Button>
+    <Ionicon
+      name="ios-search"
+      color={styles.colors.gray}
+      size={em(1.5)}
+      containerStyle={searchInputIconStyle}
+    />
   </View>
 );
 
@@ -40,8 +40,7 @@ SearchInput.propTypes = {
   name: string.isRequired,
   placeholder: string.isRequired,
   value: string.isRequired,
-  onChangeText: func.isRequired,
-  onPressSearchButton: func.isRequired
+  onChangeText: func.isRequired
 };
 
 export default SearchInput;
