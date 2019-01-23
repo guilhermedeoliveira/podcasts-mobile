@@ -31,12 +31,13 @@ class StyledCarousel extends PureComponent {
   static propTypes = {
     name: string.isRequired,
     entries: array,
-    isLoading: bool.isRequired,
+    isLoading: bool,
     onPressItem: func.isRequired
   };
 
   static defaultProps = {
-    entries: []
+    entries: [],
+    isLoading: false
   };
 
   renderGalleryItem = ({ item }) => {

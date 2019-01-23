@@ -5,7 +5,7 @@ import { shape, func } from 'prop-types';
 import { ViewContainer, ScrollViewContainer } from '../components/shared';
 import SearchInput from '../components/SearchInput';
 import Carousel from '../components/Carousel';
-import Item from '../modules/Item';
+import Item from '../modules/home/Item';
 import Text from '../components/Text';
 
 import styles, { em } from '../styles';
@@ -33,7 +33,7 @@ class HomeScreen extends PureComponent {
   };
 
   _renderItem = ({ item }) => (
-    <Item onPressItem={this.onPressItem} />
+    <Item onPressItem={this.onPressItem} item={item} />
   );
 
   render() {
@@ -78,7 +78,6 @@ class HomeScreen extends PureComponent {
             <FlatList
               data={[{ key: 'a' }, { key: 'b' }, { key: 'c' }, { key: 'd' }, { key: 'e' }]}
               renderItem={this._renderItem}
-              // style={{ borderWidth: 1, borderColor: 'black' }}
             />
           </ViewContainer>
         </ScrollViewContainer>

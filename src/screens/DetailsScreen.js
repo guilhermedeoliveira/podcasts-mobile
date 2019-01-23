@@ -1,12 +1,17 @@
 import React, { PureComponent } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { shape, func } from 'prop-types';
 
 import { ViewContainer } from '../components/shared';
 import AntIcon from '../components/Icon/AntIcon';
 import Ionicon from '../components/Icon/Ionicon';
 import EntypoIcon from '../components/Icon/EntypoIcon';
 
-import { ControlsContainer, mainButtonControl } from '../modules/details/styles';
+import {
+  ControlsContainer,
+  goBackButtonStyle,
+  mainButtonControlStyle
+} from '../modules/details/styles';
 import globalStyles, { em } from '../styles';
 
 class DetailsScreen extends PureComponent {
@@ -14,7 +19,18 @@ class DetailsScreen extends PureComponent {
     header: null
   };
 
+  static propTypes = {
+    navigation: shape({
+      goBack: func.isRequired
+    }).isRequired
+  };
+
   state = { isPaused: false };
+
+  goBack = () => {
+    const { navigation: { goBack } } = this.props;
+    goBack();
+  };
 
   render() {
     const { isPaused } = this.state;
@@ -22,8 +38,16 @@ class DetailsScreen extends PureComponent {
     return (
       <ViewContainer
         backgroundColor={globalStyles.colors.white}
-        paddingTop={em(2)}
+        paddingTop={em(1)}
       >
+        <Ionicon
+          name="md-arrow-back"
+          size={em(2)}
+          color={globalStyles.colors.black}
+          onPress={this.goBack}
+          containerStyle={goBackButtonStyle}
+        />
+
         <View>
           <View style={styles.progressWrapper}>
             <View style={styles.progress} />
@@ -43,7 +67,7 @@ class DetailsScreen extends PureComponent {
               name={isPaused ? 'pause' : 'play'}
               size={em(3.5)}
               color={globalStyles.colors.white}
-              containerStyle={mainButtonControl}
+              containerStyle={mainButtonControlStyle}
             />
             <EntypoIcon
               name="controller-fast-forward"

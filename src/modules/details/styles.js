@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
 import styles, { em } from '../../styles';
 
@@ -10,7 +10,12 @@ export const ControlsContainer = styled.View`
   padding-horizontal: ${em(2)};
 `;
 
-export const mainButtonControl = {
+export const goBackButtonStyle = {
+  marginBottom: em(1),
+  marginLeft: em(1.5)
+};
+
+export const mainButtonControlStyle = {
   justifyContent: 'center',
   alignItems: 'center',
   height: em(5),

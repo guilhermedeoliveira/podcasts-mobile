@@ -32,13 +32,12 @@ export const searchInputContainerStyle = {
   alignItems: 'center',
   position: 'relative',
   width: styles.width,
-  paddingRight: em(2),
-  paddingLeft: em(0.55)
+  paddingHorizontal: em(1)
 };
 
 export const searchInputIconStyle = {
   position: 'absolute',
-  top: '15%',
+  top: '20%',
   left: '40%'
 };
 

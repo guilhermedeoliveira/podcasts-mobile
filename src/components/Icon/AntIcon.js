@@ -18,7 +18,11 @@ const AntIcon = ({
   containerStyle,
   ...rest
 }) => (
-  <TouchableOpacity activeOpacity={0.8} style={containerStyle}>
+  <TouchableOpacity
+    activeOpacity={0.8}
+    onPress={onPress}
+    style={containerStyle}
+  >
     <Ant
       name={name}
       size={size}
