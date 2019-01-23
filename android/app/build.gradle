@@ -134,9 +134,14 @@ android {
             }
         }
     }
+    // in `react-native-video` ExoPlayer 2.9.0 uses some Java 1.8 features
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
+    compile project(':react-native-video')
     compile project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
