@@ -18,7 +18,7 @@ const AntIcon = ({
   containerStyle,
   ...rest
 }) => (
-  <TouchableOpacity style={containerStyle}>
+  <TouchableOpacity activeOpacity={0.8} style={containerStyle}>
     <Ant
       name={name}
       size={size}
@@ -39,7 +39,7 @@ AntIcon.propTypes = {
 AntIcon.defaultProps = {
   name: 'pause',
   size: 24,
-  color: styles.colors.white,
+  color: styles.colors.black,
   onPress: () => {},
   containerStyle: {}
 };

@@ -1,39 +1,67 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import CarouselParallax from '../components/Carousel/CarouselParallax';
+import { ViewContainer } from '../components/shared';
 import AntIcon from '../components/Icon/AntIcon';
 import Ionicon from '../components/Icon/Ionicon';
 import EntypoIcon from '../components/Icon/EntypoIcon';
 
+import { ControlsContainer, mainButtonControl } from '../modules/details/styles';
 import globalStyles, { em } from '../styles';
-import Text from '../components/Text';
 
-const DetailsScreen = () => (
-  <React.Fragment>
-    <CarouselParallax entries={[0, 1, 2, 3, 4, 5, 6, 7, 8]} />
+class DetailsScreen extends PureComponent {
+  static navigationOptions = {
+    header: null
+  };
 
-    <View style={styles.player}>
-      <View style={styles.progressWrapper}>
-        <View style={styles.progress} />
-      </View>
+  state = { isPaused: false };
 
-      <View style={styles.content}>
-        <EntypoIcon name="shuffle" size={12} color="#FFF" />
-        <EntypoIcon name="controller-fast-backward" size={24} color="#FFF" />
-        <AntIcon name="pause" size={24} color="#FFF" />
-        <EntypoIcon name="controller-fast-forward" size={24} color="#FFF" />
-        <Ionicon name="ios-repeat" size={24} color="#FFF" />
-      </View>
-    </View>
-  </React.Fragment>
-);
+  render() {
+    const { isPaused } = this.state;
+
+    return (
+      <ViewContainer
+        backgroundColor={globalStyles.colors.white}
+        paddingTop={em(2)}
+      >
+        <View>
+          <View style={styles.progressWrapper}>
+            <View style={styles.progress} />
+          </View>
+
+          <ControlsContainer>
+            <EntypoIcon
+              name="shuffle"
+              size={em(1)}
+              color={globalStyles.colors.gray}
+            />
+            <EntypoIcon
+              name="controller-fast-backward"
+              size={em(1.8)}
+            />
+            <AntIcon
+              name={isPaused ? 'pause' : 'play'}
+              size={em(3.5)}
+              color={globalStyles.colors.white}
+              containerStyle={mainButtonControl}
+            />
+            <EntypoIcon
+              name="controller-fast-forward"
+              size={em(1.8)}
+            />
+            <Ionicon
+              name="ios-repeat"
+              size={em(1.5)}
+              color={globalStyles.colors.gray}
+            />
+          </ControlsContainer>
+        </View>
+      </ViewContainer>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
-  player: {
-    alignSelf: 'stretch'
-  },
-
   progressWrapper: {
     flexDirection: 'row',
 
@@ -41,41 +69,12 @@ const styles = StyleSheet.create({
     backgroundColor: globalStyles.colors.yellowBorder,
     marginBottom: em(2)
   },
-
-
   progress: {
     flex: 0.5,
 
     height: 2,
     backgroundColor: globalStyles.colors.gray,
     marginBottom: em(2)
-  },
-
-  content: {
-    height: 42,
-    backgroundColor: globalStyles.colors.gray,
-    borderColor: globalStyles.colors.black,
-    borderBottomWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: em(1),
-    justifyContent: 'space-between'
-  },
-
-  current: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-
-  title: {
-    // color: colors.text
-    // fontSize: fonts.medium,
-  },
-
-  description: {
-    // color: colors.textInactive,
-    // fontSize: fonts.tiny,
   }
 });
 
