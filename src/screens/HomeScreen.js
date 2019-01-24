@@ -4,7 +4,7 @@ import { shape, func } from 'prop-types';
 
 import { ViewContainer, ScrollViewContainer } from '../components/shared';
 import SearchInput from '../components/SearchInput';
-import Carousel from '../components/Carousel';
+import MainCarousel from '../components/Carousel/MainCarousel';
 import Item from '../modules/home/Item';
 import Text from '../components/Text';
 
@@ -53,7 +53,7 @@ class HomeScreen extends PureComponent {
 
         <ScrollViewContainer>
           <ViewContainer>
-            <Carousel
+            <MainCarousel
               name="FAVORITES"
               entries={[0, 1, 2, 3, 4, 5, 6, 7, 8]}
               onPressItem={this.onPressItem}

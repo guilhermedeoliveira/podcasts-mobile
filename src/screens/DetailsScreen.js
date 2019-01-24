@@ -2,8 +2,9 @@ import React, { PureComponent } from 'react';
 import { shape, func } from 'prop-types';
 
 import { ViewContainer } from '../components/shared';
-import Player from '../components/Player';
 import Ionicon from '../components/Icon/Ionicon';
+import PlayerCarousel from '../components/Carousel/PlayerCarousel';
+import Player from '../components/Player';
 
 import { goBackButtonStyle } from '../modules/details/styles';
 import globalStyles, { em } from '../styles';
@@ -39,6 +40,8 @@ class DetailsScreen extends PureComponent {
           onPress={this.goBack}
           containerStyle={goBackButtonStyle}
         />
+
+        <PlayerCarousel entries={[0, 1, 2, 3, 4, 5, 6]} />
 
         <Player />
       </ViewContainer>

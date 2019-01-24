@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { array, func } from 'prop-types';
+import { array } from 'prop-types';
 import Carousel from 'react-native-snap-carousel';
 
 import {
-  ContainerCarousel,
+  CarouselContainer,
+  ItemContainer,
   ImageCarousel,
   DescriptionContainer
 } from './styles';
@@ -18,25 +19,19 @@ const itemWidth = (slideWidth + (paddingHorizontal * 2));
 
 class CarouselPlayer extends Component {
   static propTypes = {
-    entries: array.isRequired,
-    navigate: func
-  };
-
-  static defaultProps = {
-    navigate: () => { }
+    entries: array.isRequired
   };
 
   state = { activeSlide: 0 };
 
-  renderGalleryItem = ({ item }) => (
-    <ContainerCarousel
+  renderItem = ({ item }) => (
+    <ItemContainer
       width={itemWidth}
       paddingHorizontal={paddingHorizontal}
-      activeOpacity={1}
-      onPress={() => this.props.navigate(item)}
+      activeOpacity={0.8}
+      onPress={() => {}}
     >
       <ImageCarousel
-        // image={this.getContentImageByCategory(item.content.habit.category.slug)}
         width={slideWidth}
       />
 
@@ -44,20 +39,24 @@ class CarouselPlayer extends Component {
         <Text large color={styles.colors.black}>Black Album</Text>
         <Text small color={styles.colors.gray}>This is a description</Text>
       </DescriptionContainer>
-    </ContainerCarousel>
+    </ItemContainer>
   );
 
   render() {
+    const { entries } = this.props;
+
     return (
-      <Carousel
-        ref={(c) => { this._carousel = c; }}
-        data={this.props.entries}
-        inactiveSlideScale={1}
-        renderItem={this.renderGalleryItem}
-        onSnapToItem={(index) => this.setState({ activeSlide: index })}
-        sliderWidth={sliderWidth}
-        itemWidth={itemWidth}
-      />
+      <CarouselContainer>
+        <Carousel
+          ref={(c) => { this._carousel = c; }}
+          data={entries}
+          inactiveSlideScale={1}
+          renderItem={this.renderItem}
+          onSnapToItem={index => this.setState({ activeSlide: index })}
+          sliderWidth={sliderWidth}
+          itemWidth={itemWidth}
+        />
+      </CarouselContainer>
     );
   }
 }

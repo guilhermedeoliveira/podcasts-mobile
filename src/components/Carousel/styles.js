@@ -6,7 +6,8 @@ import styles, { em } from '../../styles';
 import vivaLaVida from '../../assets/images/viva-la-vida.jpeg';
 
 export const CarouselContainer = styled.View`
-  margin-vertical: ${em(1)};
+  margin-top: ${em(1)};
+  margin-bottom: ${em(3)};
 `;
 
 export const CarouselNameContainer = styled.View`
@@ -32,27 +33,21 @@ export const CarouselTouchableContainer = styled.TouchableOpacity.attrs({
 `;
 
 // CarouselPlayer
-export const ContainerCarousel = styled.TouchableOpacity`
+export const ItemContainer = styled.TouchableOpacity`
   width: ${({ width }) => width || em(2)};
   paddingHorizontal: ${({ paddingHorizontal }) => paddingHorizontal || em(1)};
-
-  border-width: 1;
-  border-color: blue;
 `;
 
 export const DescriptionContainer = styled.View`
   justify-content: center;
   align-items: center;
   margin-top: ${em(2)};
-
-  border-width: 1;
-  border-color: green;
 `;
 
 export const ImageCarousel = styled.Image.attrs({
   source: ({ image }) => image || vivaLaVida
 })`
   width: ${({ width }) => width || em(16)};
-  height: ${({ width }) => (width || em(16)) * 0.6};
-  border-radius: 15;
+  height: ${({ width }) => width || em(16)};
+  border-radius: 50;
 `;
