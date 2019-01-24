@@ -20,14 +20,26 @@ class DetailsScreen extends PureComponent {
     }).isRequired
   };
 
-  state = {};
+  state = {
+    activeItem: 0,
+    currentSound: [
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+    ]
+  };
 
   goBack = () => {
     const { navigation: { goBack } } = this.props;
     goBack();
   };
 
+  setActiveItem = (activeItem) => {
+    this.setState({ activeItem });
+  };
+
   render() {
+    const { currentSound, activeItem } = this.state;
+
     return (
       <ViewContainer
         backgroundColor={globalStyles.colors.white}
@@ -41,9 +53,12 @@ class DetailsScreen extends PureComponent {
           containerStyle={goBackButtonStyle}
         />
 
-        <PlayerCarousel entries={[0, 1, 2, 3, 4, 5, 6]} />
+        <PlayerCarousel
+          entries={[0, 1, 2, 3, 4, 5, 6]}
+          setActiveItem={this.setActiveItem}
+        />
 
-        <Player />
+        <Player source={currentSound[activeItem]} />
       </ViewContainer>
     );
   }

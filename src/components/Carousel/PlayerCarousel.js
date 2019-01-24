@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { array } from 'prop-types';
+import React, { PureComponent } from 'react';
+import { array, func } from 'prop-types';
 import Carousel from 'react-native-snap-carousel';
 
 import {
@@ -17,12 +17,11 @@ const slideWidth = em(19);
 const paddingHorizontal = em(0.5);
 const itemWidth = (slideWidth + (paddingHorizontal * 2));
 
-class CarouselPlayer extends Component {
+class CarouselPlayer extends PureComponent {
   static propTypes = {
-    entries: array.isRequired
+    entries: array.isRequired,
+    setActiveItem: func.isRequired
   };
-
-  state = { activeSlide: 0 };
 
   renderItem = ({ item }) => (
     <ItemContainer
@@ -43,7 +42,7 @@ class CarouselPlayer extends Component {
   );
 
   render() {
-    const { entries } = this.props;
+    const { entries, setActiveItem } = this.props;
 
     return (
       <CarouselContainer>
@@ -52,7 +51,7 @@ class CarouselPlayer extends Component {
           data={entries}
           inactiveSlideScale={1}
           renderItem={this.renderItem}
-          onSnapToItem={index => this.setState({ activeSlide: index })}
+          onSnapToItem={index => setActiveItem(index)}
           sliderWidth={sliderWidth}
           itemWidth={itemWidth}
         />

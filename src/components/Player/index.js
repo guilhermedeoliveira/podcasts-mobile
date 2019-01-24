@@ -3,8 +3,7 @@ import React, { PureComponent } from 'react';
 import {
   oneOfType,
   string,
-  number,
-  func
+  number
 } from 'prop-types';
 import Video from 'react-native-video';
 
@@ -25,7 +24,7 @@ import globalStyles, { em } from '../../styles';
 
 class Player extends PureComponent {
   static propTypes = {
-    source: oneOfType([string, number]).isRequired,
+    source: oneOfType([string, number]).isRequired
   };
 
   state = {
@@ -35,18 +34,17 @@ class Player extends PureComponent {
     resizeMode: 'contain',
     duration: 0.0,
     currentTime: 0.0,
-    paused: false
+    paused: false,
+    isBuffering: false
   };
 
   onLoad = (data) => {
     this.setState({ duration: data.duration });
   };
 
-  /*
   onBuffer = (event) => {
     this.setState({ isBuffering: event.isBuffering });
   };
-  */
 
   onProgress = (data) => {
     this.setState({ currentTime: data.currentTime });
@@ -112,16 +110,20 @@ class Player extends PureComponent {
 
   render() {
     const { source } = this.props;
-    const { paused, duration } = this.state;
+    const {
+      paused,
+      duration,
+      isBuffering
+    } = this.state;
 
     return (
       <PlayerContainer>
         <Video
           ref={(ref) => { this.video = ref; }}
           /* For ExoPlayer */
-          source={{ uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4' }}
-          // source={{ uri: source }}
+          // source={{ uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4' }}
           // source={source}
+          source={{ uri: source }}
           onBuffer={this.onBuffer}
           rate={this.state.rate}
           paused={this.state.paused}
@@ -149,10 +151,10 @@ class Player extends PureComponent {
 
         <DurationContainer>
           <Text small color={globalStyles.colors.gray}>
-            {duration ? '00.00' : '--.--'}
+            {(duration && !isBuffering) ? '00.00' : '--.--'}
           </Text>
           <Text small color={globalStyles.colors.gray}>
-            {duration ? duration.toFixed(2) : '--.--'}
+            {(duration && !isBuffering) ? duration.toFixed(2) : '--.--'}
           </Text>
         </DurationContainer>
 
