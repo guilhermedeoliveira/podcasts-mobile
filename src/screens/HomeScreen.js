@@ -62,9 +62,8 @@ class HomeScreen extends PureComponent {
 
           <ViewContainer>
             <ViewContainer
-              marginVertical={em(1)}
-              paddingVertical={em(1)}
               paddingHorizontal={em(1)}
+              paddingBottom={em(1)}
             >
               <Text
                 extraLarge
