@@ -40,6 +40,7 @@ export const ProgressRemaining = styled.View`
 export const DurationContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
+  padding-bottom: ${em(2)};
   padding-horizontal: ${em(2)};
 `;
 

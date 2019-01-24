@@ -27,7 +27,7 @@ const slideWidth = em(10);
 const paddingHorizontal = em(1);
 const itemWidth = slideWidth + paddingHorizontal;
 
-class StyledCarousel extends PureComponent {
+class MainCarousel extends PureComponent {
   static propTypes = {
     name: string.isRequired,
     entries: array,
@@ -90,4 +90,4 @@ class StyledCarousel extends PureComponent {
   }
 }
 
-export default StyledCarousel;
+export default MainCarousel;
