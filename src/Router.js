@@ -15,7 +15,6 @@ const StackNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'Home'
-    // initialRouteName: 'Details'
   }
 );
 
