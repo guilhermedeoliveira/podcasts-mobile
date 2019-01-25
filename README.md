@@ -47,12 +47,15 @@ yarn ios:dev
 
 Renders `MainContent` and `Grid` search component.
 
+`MainContent`
 ![MainContent](https://user-images.githubusercontent.com/20259146/51724474-4a688080-203c-11e9-965b-8d464f7dd40f.png)
 
+`Grid`
 ![Grid](https://user-images.githubusercontent.com/20259146/51724495-5f451400-203c-11e9-8da2-e1fa1271ba3c.png)
 
 #### Details
 Presents a carousel and a media player with controls
 
+`DetailsScreen`
 ![DetailsScreen](https://user-images.githubusercontent.com/20259146/51724505-6c620300-203c-11e9-9092-f1da5d98436d.png)
 
