@@ -40,7 +40,7 @@ class MainCarousel extends PureComponent {
     isLoading: false
   };
 
-  renderGalleryItem = ({ item }) => {
+  renderItem = ({ item }) => {
     const { onPressItem } = this.props;
 
     return (
@@ -50,13 +50,13 @@ class MainCarousel extends PureComponent {
       >
         <CarouselTouchableContainer width={slideWidth} onPress={onPressItem}>
           <Image
+            source={item.thumbnail}
             style={{ flex: 0.8, width: '100%' }}
-            source={{ uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png' }}
           />
 
           <ViewContainer flex={0.2}>
-            <Text large>Black Album</Text>
-            <Text small color={styles.colors.gray}>This is a description</Text>
+            <Text large>{item.band}</Text>
+            <Text small color={styles.colors.gray}>{item.music}</Text>
           </ViewContainer>
         </CarouselTouchableContainer>
       </CarouselItemContainer>
@@ -79,7 +79,7 @@ class MainCarousel extends PureComponent {
           data={entries}
           inactiveSlideScale={1}
           inactiveSlideOpacity={1}
-          renderItem={this.renderGalleryItem}
+          renderItem={this.renderItem}
           sliderWidth={sliderWidth}
           itemWidth={itemWidth}
           activeSlideAlignment="start"

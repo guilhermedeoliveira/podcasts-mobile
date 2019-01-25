@@ -1,5 +1,10 @@
 import React, { PureComponent } from 'react';
-import { shape, func } from 'prop-types';
+import {
+  arrayOf,
+  shape,
+  string,
+  func
+} from 'prop-types';
 
 import { ViewContainer } from '../components/shared';
 import Ionicon from '../components/Icon/Ionicon';
@@ -16,16 +21,22 @@ class DetailsScreen extends PureComponent {
 
   static propTypes = {
     navigation: shape({
-      goBack: func.isRequired
+      goBack: func.isRequired,
+      state: shape({
+        params: shape({
+          podcasts: arrayOf(shape({
+            band: string.isRequired,
+            music: string.isRequired,
+            thumbnail: string.isRequired,
+            url: string.isRequired
+          })).isRequired
+        }).isRequired
+      }).isRequired
     }).isRequired
   };
 
   state = {
-    activeItem: 0,
-    currentSound: [
-      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
-    ]
+    activeItem: 0
   };
 
   goBack = () => {
@@ -38,7 +49,8 @@ class DetailsScreen extends PureComponent {
   };
 
   render() {
-    const { currentSound, activeItem } = this.state;
+    const { navigation: { state: { params: { podcasts } } } } = this.props;
+    const { activeItem } = this.state;
 
     return (
       <ViewContainer
@@ -54,11 +66,11 @@ class DetailsScreen extends PureComponent {
         />
 
         <PlayerCarousel
-          entries={[0, 1, 2, 3, 4, 5, 6]}
+          entries={podcasts}
           setActiveItem={this.setActiveItem}
         />
 
-        <Player source={currentSound[activeItem]} />
+        <Player source={podcasts[activeItem].url} />
       </ViewContainer>
     );
   }

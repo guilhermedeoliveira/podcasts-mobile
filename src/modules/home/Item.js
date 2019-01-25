@@ -1,5 +1,10 @@
 import React from 'react';
-import { func } from 'prop-types';
+import {
+  shape,
+  string,
+  number,
+  func
+} from 'prop-types';
 
 import {
   TouchableItemContainer,
@@ -11,26 +16,39 @@ import {
 import Text from '../../components/Text';
 
 import styles from '../../styles';
-import vivaLaVida from '../../assets/images/viva-la-vida.jpeg';
 
-const Item = ({ onPressItem }) => (
+const Item = ({
+  item: {
+    thumbnail,
+    band,
+    music,
+    position
+  },
+  onPressItem
+}) => (
   <TouchableItemContainer onPress={onPressItem}>
     <ImageContainer>
-      <ImageAlbum source={vivaLaVida} />
+      <ImageAlbum source={thumbnail} />
     </ImageContainer>
 
     <DescriptionContainer>
-      <Text large>Black Album</Text>
-      <Text small color={styles.colors.gray}>This is a description</Text>
+      <Text large>{band}</Text>
+      <Text small color={styles.colors.gray}>{music}</Text>
     </DescriptionContainer>
 
     <NumberContainer>
-      <Text huge>10</Text>
+      <Text huge>{position}</Text>
     </NumberContainer>
   </TouchableItemContainer>
 );
 
 Item.propTypes = {
+  item: shape({
+    thumbnail: number.isRequired,
+    band: string.isRequired,
+    music: string.isRequired,
+    position: number.isRequired
+  }).isRequired,
   onPressItem: func.isRequired
 };
 

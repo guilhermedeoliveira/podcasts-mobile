@@ -31,12 +31,13 @@ class CarouselPlayer extends PureComponent {
       onPress={() => {}}
     >
       <ImageCarousel
+        source={item.thumbnail}
         width={slideWidth}
       />
 
       <DescriptionContainer>
-        <Text large color={styles.colors.black}>Black Album</Text>
-        <Text small color={styles.colors.gray}>This is a description</Text>
+        <Text large color={styles.colors.black}>{item.band}</Text>
+        <Text small color={styles.colors.gray}>{item.music}</Text>
       </DescriptionContainer>
     </ItemContainer>
   );

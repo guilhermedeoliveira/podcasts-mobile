@@ -8,6 +8,7 @@ import MainCarousel from '../components/Carousel/MainCarousel';
 import Item from '../modules/home/Item';
 import Text from '../components/Text';
 
+import podcasts from '../api/podcasts';
 import styles, { em } from '../styles';
 
 class HomeScreen extends PureComponent {
@@ -29,7 +30,7 @@ class HomeScreen extends PureComponent {
 
   onPressItem = () => {
     const { navigation: { navigate } } = this.props;
-    navigate('Details');
+    navigate('Details', { podcasts });
   };
 
   _renderItem = ({ item }) => (
@@ -55,7 +56,7 @@ class HomeScreen extends PureComponent {
           <ViewContainer>
             <MainCarousel
               name="FAVORITES"
-              entries={[0, 1, 2, 3, 4, 5, 6, 7, 8]}
+              entries={podcasts}
               onPressItem={this.onPressItem}
             />
           </ViewContainer>
@@ -75,7 +76,8 @@ class HomeScreen extends PureComponent {
             </ViewContainer>
 
             <FlatList
-              data={[{ key: 'a' }, { key: 'b' }, { key: 'c' }, { key: 'd' }, { key: 'e' }]}
+              data={podcasts}
+              keyExtractor={item => item.id}
               renderItem={this._renderItem}
             />
           </ViewContainer>
