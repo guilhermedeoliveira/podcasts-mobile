@@ -10,6 +10,7 @@ import Item from '../modules/home/Item';
 import Grid from '../components/Grid';
 
 import podcasts from '../api/podcasts';
+import { filterSearchByProp } from '../helpers/array';
 import styles, { em } from '../styles';
 
 class HomeScreen extends PureComponent {
@@ -50,7 +51,7 @@ class HomeScreen extends PureComponent {
   );
 
   renderBody = () => {
-    const { isSearching } = this.state;
+    const { isSearching, search } = this.state;
 
     if (!isSearching) {
       return (
@@ -64,7 +65,10 @@ class HomeScreen extends PureComponent {
 
     return (
       <Grid
-        data={podcasts}
+        data={search
+          ? filterSearchByProp(podcasts, search, 'band')
+          : []
+        }
         grid={3}
         onPressItem={this.onPressItem}
       />
