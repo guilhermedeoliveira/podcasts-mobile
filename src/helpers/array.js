@@ -11,3 +11,14 @@ export const formatGridData = (data, numColumns) => {
 };
 
 export const normalizeAuthorsArray = authors => authors.join(', ');
+
+export const filterSearchByProp = (array = [], query = '', prop) => array
+  .filter((element) => {
+    if (element[prop]) {
+      return element[prop]
+        .toLowerCase()
+        .includes(query.trim().toLowerCase());
+    }
+
+    return null;
+  });

@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react';
-import { FlatList } from 'react-native';
+import { View } from 'react-native';
 import { shape, func } from 'prop-types';
 
 import { ViewContainer, ScrollViewContainer } from '../components/shared';
+import Ionicon from '../components/Icon/Ionicon';
 import SearchInput from '../components/SearchInput';
-import MainCarousel from '../components/Carousel/MainCarousel';
+import HomeContent from '../modules/home/HomeContent';
 import Item from '../modules/home/Item';
-import Text from '../components/Text';
+import Grid from '../components/Grid';
 
 import podcasts from '../api/podcasts';
 import styles, { em } from '../styles';
@@ -22,7 +23,10 @@ class HomeScreen extends PureComponent {
     }).isRequired
   };
 
-  state = { search: '' };
+  state = {
+    isSearching: false,
+    search: ''
+  };
 
   onChangeText = (name, text) => {
     this.setState({ [name]: text });
@@ -33,12 +37,42 @@ class HomeScreen extends PureComponent {
     navigate('Details', { podcasts });
   };
 
-  _renderItem = ({ item }) => (
+  onFocusSearchInput = () => {
+    this.setState({ isSearching: true });
+  };
+
+  onEndSearching = () => {
+    this.setState({ isSearching: false });
+  };
+
+  renderItem = ({ item }) => (
     <Item onPressItem={this.onPressItem} item={item} />
   );
 
+  renderBody = () => {
+    const { isSearching } = this.state;
+
+    if (!isSearching) {
+      return (
+        <HomeContent
+          podcasts={podcasts}
+          renderItem={this.renderItem}
+          onPressItem={this.onPressItem}
+        />
+      );
+    }
+
+    return (
+      <Grid
+        data={podcasts}
+        grid={3}
+        onPressItem={this.onPressItem}
+      />
+    );
+  }
+
   render() {
-    const { search } = this.state;
+    const { isSearching, search } = this.state;
 
     return (
       <ViewContainer
@@ -49,38 +83,24 @@ class HomeScreen extends PureComponent {
           name="search"
           placeholder="Search"
           value={search}
+          onFocus={this.onFocusSearchInput}
+          onEndSearching={this.onEndSearching}
           onChangeText={this.onChangeText}
         />
 
+        {isSearching && (
+          <View style={{ alignItems: 'center' }}>
+            <Ionicon
+              name="ios-close"
+              color={styles.colors.gray}
+              size={em(3.5)}
+              onPress={this.onEndSearching}
+            />
+          </View>
+        )}
+
         <ScrollViewContainer>
-          <ViewContainer>
-            <MainCarousel
-              name="FAVORITES"
-              entries={podcasts}
-              onPressItem={this.onPressItem}
-            />
-          </ViewContainer>
-
-          <ViewContainer>
-            <ViewContainer
-              paddingHorizontal={em(1)}
-              paddingBottom={em(1)}
-            >
-              <Text
-                extraLarge
-                light
-                color={styles.colors.black}
-              >
-                THE HOT
-              </Text>
-            </ViewContainer>
-
-            <FlatList
-              data={podcasts}
-              keyExtractor={item => item.id}
-              renderItem={this._renderItem}
-            />
-          </ViewContainer>
+          {this.renderBody()}
         </ScrollViewContainer>
       </ViewContainer>
     );

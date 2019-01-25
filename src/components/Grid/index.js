@@ -1,92 +1,65 @@
 import React, { PureComponent } from 'react';
 import { FlatList } from 'react-native';
 import {
-  bool,
   arrayOf,
-  object,
+  shape,
+  string,
   number,
   func
 } from 'prop-types';
 
-import { ViewContainer } from '../shared';
-import Loader from '../Loader';
-import Text from '../Text';
-import Book from '../Book';
-import { GridItemContainer } from '../Book/Book.styles';
+import {
+  GridItemContainer,
+  GridImageContainer,
+  GridImage,
+  gridStyle
+} from './styles';
 
-import { listScreenPodcaststyle } from '../../styles/general';
 import { formatGridData } from '../../helpers/array';
 
-class Grid extends PureComponent {
+class TitleGridList extends PureComponent {
   static propTypes = {
-    isLoading: bool.isRequired,
-    isFetchingWithButton: bool.isRequired,
-    data: arrayOf(object).isRequired,
-    onRefresh: func.isRequired,
-    onEndReached: func.isRequired,
+    data: arrayOf(shape({
+      id: string.isRequired,
+      name: string.isRequired,
+      thumbnail: string,
+      authors: string
+    })),
     grid: number.isRequired,
-    onPressGridItem: func
+    onPressItem: func.isRequired
   };
 
   static defaultProps = {
-    onPressGridItem: () => {}
+    data: []
   };
 
   _renderItem = ({ item }) => {
-    const { onPressGridItem } = this.props;
+    const { onPressItem } = this.props;
 
     if (item.empty) {
       return <GridItemContainer />;
     }
 
     return (
-      <Book
-        item={item}
-        onPressItem={() => onPressGridItem('Details', item)}
-        containerStyle={listScreenPodcaststyle}
-      />
+      <GridImageContainer onPress={onPressItem}>
+        <GridImage source={item.thumbnail} />
+      </GridImageContainer>
     );
   };
 
   render() {
-    const {
-      isLoading,
-      isFetchingWithButton,
-      data,
-      onRefresh,
-      onEndReached,
-      grid
-    } = this.props;
-
-    if (isFetchingWithButton && !data.length) {
-      return (
-        <ViewContainer centralized>
-          <Loader />
-        </ViewContainer>
-      );
-    }
-
-    if (data.length < 1) {
-      return (
-        <ViewContainer centralized>
-          <Text large>Search for Podcasts!</Text>
-        </ViewContainer>
-      );
-    }
+    const { data, grid } = this.props;
 
     return (
       <FlatList
         data={formatGridData(data, grid)}
         keyExtractor={item => item.id}
-        onRefresh={onRefresh}
-        refreshing={isLoading}
         numColumns={grid}
         renderItem={this._renderItem}
-        onEndReached={onEndReached}
-        onEndReachedThreshold={0.01}
+        style={gridStyle}
       />
     );
   }
 }
 
-export default Grid;
+export default TitleGridList;
